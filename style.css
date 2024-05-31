@@ -1,0 +1,118 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(to bottom, #222c35, #000000);
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+.container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+#header-message {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    background: #222c35;
+    padding: 10px;
+
+   
+   
+}
+
+#header-message h1 {
+    font-size: 2em;
+    font-weight: bold;
+    color: #faf9f9;
+    margin: 0;
+    text-shadow: 2px 2px 2px #1e2a87e1;
+}
+
+h1 {
+    color: #333;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+}
+
+input, textarea, select, button {
+    width: calc(100% - 20px);
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+label {
+    font-weight: bold;
+    margin-top: 10px;
+    text-align: left;
+}
+
+button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    padding: 8px 15px; /* Espaciado interior para el botón */
+    border-radius: 3px;
+    font-size: 14px; /* Tamaño de fuente más pequeño */
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+#tasks-list {
+    margin-top: 20px;
+}
+
+#tasks-list div {
+    background: #f8f9fa;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    /* Resto de estilos */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.complete-btn {
+    margin-left: 5px; /* Agregar espacio entre los botones */
+}
+
+button.start-btn,
+button.complete-btn {
+    width: 30%; /* Reducir el ancho del botón */
+    height: 30px; /* Reducir la altura del botón */
+    font-size: 14px; /* Reducir el tamaño del texto */
+}
+
+#timer {
+    margin-top: 20px;
+    text-align: center;
+}
+
+#timer-display {
+    font-size: 2em;
+    margin: 20px 0;
+    display: block;
+    color: #007bff;
+}
+
+#start-timer, #stop-timer {
+    margin-top: 10px; /* Agregar espacio entre los botones */
+    padding: 20px 12px; /* Reducir el tamaño del padding para los botones */
+    font-size: 12px; /* Reducir el tamaño de la fuente de los botones */
+}
