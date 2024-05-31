@@ -5,6 +5,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const timerDisplay = document.getElementById('timer-display');
     const startTimerBtn = document.getElementById('start-timer');
     const stopTimerBtn = document.getElementById('stop-timer');
+    const clearCompletedTasksBtn = document.getElementById('clear-completed-tasks-btn');
+    const clearIncompleteTasksBtn = document.getElementById('clear-incomplete-tasks-btn'); // Botón para eliminar tareas incompletas
 
     let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
     let completedTasks = JSON.parse(localStorage.getItem('completedTasks')) || [];
@@ -19,21 +21,28 @@ document.addEventListener('DOMContentLoaded', () => {
         const taskName = document.getElementById('task-name').value;
         const taskDesc = document.getElementById('task-desc').value;
         const taskDeadline = document.getElementById('task-deadline').value;
-
+    
         const task = {
             name: taskName,
             description: taskDesc,
             deadline: taskDeadline,
-            timeAllocated: 1, // Duración preestablecida en 1 segundo
+            timeAllocated: 1,
             completed: false,
             timeSpent: 0
         };
-
+    
         tasks.push(task);
-        localStorage.setItem('tasks', JSON.stringify(tasks)); // Guardar tareas en localStorage
-        renderTasks(); // Renderizar la lista de tareas
+        localStorage.setItem('tasks', JSON.stringify(tasks));
+        renderTasks();
         taskForm.reset();
+    
+        // Limpiar tareas incompletas en index.html
+        const tasksInIndex = JSON.parse(localStorage.getItem('tasks')) || [];
+        const filteredTasks = tasksInIndex.filter(task => !task.completed);
+        localStorage.setItem('tasks', JSON.stringify(filteredTasks)); // Actualizar el almacenamiento local en index.html
+        renderTasksInIndex(); // Volver a renderizar la lista de tareas en index.html
     });
+    
 
     startTimerBtn.addEventListener('click', () => {
         if (currentTaskIndex !== null) {
@@ -62,6 +71,21 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    clearCompletedTasksBtn.addEventListener('click', () => {
+        completedTasks = [];
+        localStorage.setItem('completedTasks', JSON.stringify(completedTasks));
+        renderCompletedTasks();
+    });
+
+    clearIncompleteTasksBtn.addEventListener('click', () => {
+        // Filtrar las tareas no completadas y actualizar el almacenamiento local
+        tasks = tasks.filter(task => !task.completed);
+        localStorage.setItem('tasks', JSON.stringify(tasks));
+        renderTasks();
+    });
+    
+    
+
     function renderTasks() {
         taskList.innerHTML = '';
         tasks.forEach((task, index) => {
@@ -89,6 +113,17 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    function renderCompletedTasks() {
+        completedTasksList.innerHTML = '';
+        completedTasks.forEach((task, index) => {
+            const taskDiv = document.createElement('div');
+            taskDiv.innerHTML = `
+                <span>${task.name} - ${task.deadline} - ${formatTime(task.timeSpent)}</span>
+            `;
+            completedTasksList.appendChild(taskDiv);
+        });
+    }
+
     function startTask(index) {
         currentTaskIndex = parseInt(index);
         clearInterval(timer);
@@ -102,17 +137,16 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function completeTask(index) {
-        clearInterval(timer); // Detener el temporizador si está en funcionamiento
+        clearInterval(timer);
         tasks[index].completed = true;
-        tasks[index].timeSpent += elapsedSeconds; // Agregar el tiempo transcurrido al tiempo total de la tarea
-        elapsedSeconds = 0; // Restablecer los segundos transcurridos
-        timerDisplay.textContent = formatTime(0); // Restablecer la visualización del temporizador
+        tasks[index].timeSpent += elapsedSeconds;
+        elapsedSeconds = 0;
+        timerDisplay.textContent = formatTime(0);
         alert("¡Felicidades! Has terminado la tarea.");
         renderTasks();
-
-        // Guardar las tareas completadas en localStorage
         completedTasks.push(tasks[index]);
         localStorage.setItem('completedTasks', JSON.stringify(completedTasks));
+        renderCompletedTasks();
     }
 
     function formatTime(seconds) {

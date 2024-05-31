@@ -10,15 +10,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     clearCompletedTasksBtn.addEventListener('click', () => {
-        completedTasks = []; // Limpiar tareas completadas
-        localStorage.setItem('completedTasks', JSON.stringify(completedTasks)); // Actualizar el almacenamiento local
-        renderCompletedTasks(); // Volver a renderizar la lista de tareas completadas
-        
-        // Limpiar también las tareas en index.html
+        completedTasks = [];
+        localStorage.setItem('completedTasks', JSON.stringify(completedTasks));
+        renderCompletedTasks();
+
         const tasksInIndex = JSON.parse(localStorage.getItem('tasks')) || [];
         const filteredTasks = tasksInIndex.filter(task => !task.completed);
-        localStorage.setItem('tasks', JSON.stringify(filteredTasks)); // Actualizar el almacenamiento local en index.html
-        renderTasksInIndex(); // Volver a renderizar la lista de tareas en index.html
+        localStorage.setItem('tasks', JSON.stringify(filteredTasks));
+        renderTasksInIndex();
     });
 
     function renderCompletedTasks() {
@@ -41,7 +40,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function renderTasksInIndex() {
         // Renderizar las tareas en index.html
-        // Este código es similar al que usas en index.html
         // Asegúrate de definir la función formatTime también en el script de index.html si es necesario
     }
 });

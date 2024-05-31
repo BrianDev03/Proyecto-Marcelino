@@ -1,61 +1,53 @@
-    <!DOCTYPE html>
-    <html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Gestión de Tareas</title>
-        <link rel="stylesheet" href="css/style.css">
-    </head>
-    <body>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Tareas</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
 
-    <div id="header-message">
-        <nav id="navbar">
-            <ul>
-                <li><a href="index.html">Inicio</a></li>
-                <li><a href="about.html">Acerca de</a></li>
-                <li><a href="completed_tasks.html">Tareas Hechas</a></li>
-            </ul>
-        </nav>
-        
-        <h1>Mantén tus tiempos organizados con</h1> 
-        <div id="sub-message">
-            <h1>ByMeOrganized</h1>
-        </div>
+<div id="header-message">
+    <nav id="navbar">
+        <ul>
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="about.html">Acerca de</a></li>
+            <li><a href="completed_tasks.html">Tareas Hechas</a></li>
+        </ul>
+    </nav>
+    
+    <h1>Mantén tus tiempos organizados con</h1> 
+    <div id="sub-message">
+        <h1>ByMeOrganized</h1>
     </div>
+</div>
 
-    <div class="container">
-        <h1>Gestión de Tareas</h1>
-        <form id="task-form">
-            <input type="text" id="task-name" placeholder="Nombre de la tarea" required>
-            <textarea id="task-desc" placeholder="Descripción de la tarea"></textarea>
-            <input type="date" id="task-deadline" required>
-            <label for="task-time">Duraciones pre-establecidas</label>
-            <select id="task-time">
-                <option value="60">Normal</option>
-                <option value="180">3 minutos</option>
-                <option value="300">5 minutos</option>
-                <option value="600">10 minutos</option>
-            </select>
-            <button type="submit">Añadir Tarea</button>
-        </form>
-        <div id="tasks-list"></div>
-        <div id="timer">
-            <h2>Temporizador</h2>
-            <span id="timer-display">00:00:00</span>
-            <button id="start-timer">Iniciar</button>
-            <button id="stop-timer">Detener</button>
-        
-            <div class="container">
-                <h1>Tareas Completadas</h1>
-                <div id="completed-tasks-list"></div>
-                <button id="clear-completed-tasks-btn">Limpiar Tareas Completadas</button>
-            </div>
-            
-        </div>
-        </div>
-        
-    <script src="script/script.js"></script> 
-    <script src="script/completed_tasks.js"></script>
-
-    </body>
-    </html>
+<div class="container">
+    <h1>Gestión de Tareas</h1>
+    <form id="task-form">
+        <input type="text" id="task-name" placeholder="Nombre de la tarea" required>
+        <textarea id="task-desc" placeholder="Descripción de la tarea"></textarea>
+        <input type="date" id="task-deadline" required>
+        <label for="task-time">Duraciones pre-establecidas</label>
+        <select id="task-time">
+            <option value="60">Normal</option>
+            <option value="180">3 minutos</option>
+            <option value="300">5 minutos</option>
+            <option value="600">10 minutos</option>
+        </select>
+        <button type="submit">Añadir Tarea</button>
+    </form>
+    <div id="tasks-list"></div>
+    <div id="timer">
+        <h2>Temporizador</h2>
+        <span id="timer-display">00:00:00</span>
+        <button id="start-timer">Iniciar</button>
+        <button id="stop-timer">Detener</button>
+    </div>
+    <button id="clear-incomplete-tasks-btn">Eliminar Tareas Incompletas</button>
+</div>
+<script src="script/script.js"></script> 
+<script src="script/completed_tasks.js"></script> <!-- Agrega esta línea si el script completado no está incluido en otro lugar -->
+</body>
+</html>
