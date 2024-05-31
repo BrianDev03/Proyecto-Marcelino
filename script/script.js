@@ -1,14 +1,18 @@
 document.addEventListener('DOMContentLoaded', () => {
     const taskForm = document.getElementById('task-form');
     const taskList = document.getElementById('tasks-list');
+    const completedTasksList = document.getElementById('completed-tasks-list');
     const timerDisplay = document.getElementById('timer-display');
     const startTimerBtn = document.getElementById('start-timer');
     const stopTimerBtn = document.getElementById('stop-timer');
 
-    let tasks = [];
+    let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+    let completedTasks = JSON.parse(localStorage.getItem('completedTasks')) || [];
     let timer;
     let currentTaskIndex = null;
     let elapsedSeconds = 0;
+
+    renderTasks();
 
     taskForm.addEventListener('submit', (e) => {
         e.preventDefault();
@@ -26,7 +30,8 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         tasks.push(task);
-        renderTasks();
+        localStorage.setItem('tasks', JSON.stringify(tasks)); // Guardar tareas en localStorage
+        renderTasks(); // Renderizar la lista de tareas
         taskForm.reset();
     });
 
@@ -78,7 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         document.querySelectorAll('.complete-btn').forEach(button => {
             button.addEventListener('click', (e) => {
-                const index = e.target.getAttribute('data-index');
+                const index =  e.target.getAttribute('data-index');
                 completeTask(index);
             });
         });
@@ -104,6 +109,10 @@ document.addEventListener('DOMContentLoaded', () => {
         timerDisplay.textContent = formatTime(0); // Restablecer la visualización del temporizador
         alert("¡Felicidades! Has terminado la tarea.");
         renderTasks();
+
+        // Guardar las tareas completadas en localStorage
+        completedTasks.push(tasks[index]);
+        localStorage.setItem('completedTasks', JSON.stringify(completedTasks));
     }
 
     function formatTime(seconds) {

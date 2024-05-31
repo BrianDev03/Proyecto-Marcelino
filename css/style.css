@@ -6,22 +6,40 @@ body {
     text-align: center;
 }
 
-.container {
-    max-width: 800px;
-    margin: 50px auto;
-    padding: 20px;
-    background: #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
+nav {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: transparent;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 20px;
+}
+
+nav ul li {
+    display: inline;
+}
+
+nav ul li a {
+    color: #faf9f9;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+nav ul li a:hover {
+    text-decoration: underline;
 }
 
 #header-message {
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     background: #222c35;
     padding: 10px;
-
-   
-   
+    position: relative;
 }
 
 #header-message h1 {
@@ -30,6 +48,15 @@ body {
     color: #faf9f9;
     margin: 0;
     text-shadow: 2px 2px 2px #1e2a87e1;
+}
+
+.container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
 }
 
 h1 {
@@ -63,41 +90,51 @@ button {
     border: none;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    padding: 8px 15px; /* Espaciado interior para el botón */
+    padding: 8px 15px;
     border-radius: 3px;
-    font-size: 14px; /* Tamaño de fuente más pequeño */
+    font-size: 14px;
 }
 
 button:hover {
     background-color: #0056b3;
 }
 
-#tasks-list {
+#tasks-list, #completed-tasks-list {
     margin-top: 20px;
 }
 
-#tasks-list div {
+#tasks-list div, #completed-tasks-list div {
     background: #f8f9fa;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
     margin-bottom: 10px;
-    /* Resto de estilos */
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
 .complete-btn {
-    margin-left: 5px; /* Agregar espacio entre los botones */
+    margin-left: 5px;
 }
 
 button.start-btn,
-button.complete-btn {
-    width: 30%; /* Reducir el ancho del botón */
-    height: 30px; /* Reducir la altura del botón */
-    font-size: 14px; /* Reducir el tamaño del texto */
+button.complete-btn
+ {
+    width: 30%;
+    height: 30px;
+    font-size: 14px;
 }
+
+#clear-completed-tasks-container {
+    margin-top: 20px; /* Ajusta el valor según sea necesario */
+}
+
+#clear-completed-tasks-btn {
+    margin-top: 10px; /* Ajusta el valor según sea necesario */
+}
+
+
 
 #timer {
     margin-top: 20px;
@@ -112,7 +149,21 @@ button.complete-btn {
 }
 
 #start-timer, #stop-timer {
-    margin-top: 10px; /* Agregar espacio entre los botones */
-    padding: 20px 12px; /* Reducir el tamaño del padding para los botones */
-    font-size: 12px; /* Reducir el tamaño de la fuente de los botones */
+    margin-top: 10px;
+    padding: 20px 12px;
+    font-size: 12px;
+}
+
+footer {
+    margin-top: 20px;
+    padding: 10px;
+    background: #222c35;
+    color: #faf9f9;
+    text-align: center;
+    font-size: 14px;
+    border-top: 1px solid #333;
+}
+
+footer p {
+    margin: 0;
 }
