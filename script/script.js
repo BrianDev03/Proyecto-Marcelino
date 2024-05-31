@@ -1,20 +1,25 @@
 document.addEventListener('DOMContentLoaded', () => {
     const taskForm = document.getElementById('task-form');
     const taskList = document.getElementById('tasks-list');
-    const completedTasksList = document.getElementById('completed-tasks-list');
     const timerDisplay = document.getElementById('timer-display');
     const startTimerBtn = document.getElementById('start-timer');
     const stopTimerBtn = document.getElementById('stop-timer');
-    const clearCompletedTasksBtn = document.getElementById('clear-completed-tasks-btn');
-    const clearIncompleteTasksBtn = document.getElementById('clear-incomplete-tasks-btn'); // Botón para eliminar tareas incompletas
+    const clearAllTasksBtn = document.getElementById('clear-all-tasks-btn'); // Nuevo botón para eliminar todas las tareas
 
     let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
-    let completedTasks = JSON.parse(localStorage.getItem('completedTasks')) || [];
     let timer;
     let currentTaskIndex = null;
     let elapsedSeconds = 0;
 
     renderTasks();
+
+    // Agregar evento para el botón de eliminar todas las tareas
+    clearAllTasksBtn.addEventListener('click', () => {
+        // Limpiar todas las tareas y actualizar el almacenamiento local
+        tasks = [];
+        localStorage.setItem('tasks', JSON.stringify(tasks));
+        renderTasks(); // Volver a renderizar las tareas
+    });
 
     taskForm.addEventListener('submit', (e) => {
         e.preventDefault();
@@ -35,12 +40,6 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('tasks', JSON.stringify(tasks));
         renderTasks();
         taskForm.reset();
-    
-        // Limpiar tareas incompletas en index.html
-        const tasksInIndex = JSON.parse(localStorage.getItem('tasks')) || [];
-        const filteredTasks = tasksInIndex.filter(task => !task.completed);
-        localStorage.setItem('tasks', JSON.stringify(filteredTasks)); // Actualizar el almacenamiento local en index.html
-        renderTasksInIndex(); // Volver a renderizar la lista de tareas en index.html
     });
     
 
@@ -71,21 +70,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    clearCompletedTasksBtn.addEventListener('click', () => {
-        completedTasks = [];
-        localStorage.setItem('completedTasks', JSON.stringify(completedTasks));
-        renderCompletedTasks();
-    });
-
-    clearIncompleteTasksBtn.addEventListener('click', () => {
-        // Filtrar las tareas no completadas y actualizar el almacenamiento local
-        tasks = tasks.filter(task => !task.completed);
-        localStorage.setItem('tasks', JSON.stringify(tasks));
-        renderTasks();
-    });
-    
-    
-
     function renderTasks() {
         taskList.innerHTML = '';
         tasks.forEach((task, index) => {
@@ -113,17 +97,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    function renderCompletedTasks() {
-        completedTasksList.innerHTML = '';
-        completedTasks.forEach((task, index) => {
-            const taskDiv = document.createElement('div');
-            taskDiv.innerHTML = `
-                <span>${task.name} - ${task.deadline} - ${formatTime(task.timeSpent)}</span>
-            `;
-            completedTasksList.appendChild(taskDiv);
-        });
-    }
-
     function startTask(index) {
         currentTaskIndex = parseInt(index);
         clearInterval(timer);
@@ -144,9 +117,6 @@ document.addEventListener('DOMContentLoaded', () => {
         timerDisplay.textContent = formatTime(0);
         alert("¡Felicidades! Has terminado la tarea.");
         renderTasks();
-        completedTasks.push(tasks[index]);
-        localStorage.setItem('completedTasks', JSON.stringify(completedTasks));
-        renderCompletedTasks();
     }
 
     function formatTime(seconds) {
